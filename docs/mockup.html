@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HematRumah Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --bg: #ebe7df;
+    --page: #faf8f4;
+    --paper: #ffffff;
+    --ink: #1c2230;
+    --muted: #646a76;
+    --line: #e6e1d7;
+    --soft: #f2efe8;
+    /* brand: biru tinta (tenang, bisa dipercaya), bukan hijau */
+    --primary: #1f3354;
+    --primary-soft: #e8edf5;
+    /* semantik: listrik = kuning, air = biru */
+    --listrik: #e3a008;
+    --listrik-soft: #fdf3d6;
+    --listrik-ink: #8a5a00;
+    --air: #2478b5;
+    --air-soft: #e2eff9;
+    --warn: #c2410c;
+    --warn-soft: #fdeee5;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Plus Jakarta Sans", system-ui, sans-serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 40px 16px 80px; }
+  .intro { max-width: 860px; margin-bottom: 20px; }
+  .intro h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .intro p { margin: 0; color: var(--muted); }
+  .palette { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .sw { display: flex; align-items: center; gap: 8px; background: var(--paper); border-radius: 10px; padding: 6px 12px 6px 6px; font-size: 13px; }
+  .sw i { width: 26px; height: 26px; border-radius: 7px; background: var(--c); display: block; }
+  .sw b { display: block; font-size: 13px; }
+  .sw span { color: var(--muted); font-size: 12px; }
+
+  h2.sec { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 44px 0 6px; }
+  .cap { font-size: 14px; color: var(--muted); margin: 26px 0 8px; }
+  .cap b { color: var(--ink); }
+  code { font-size: 12.5px; background: rgba(0,0,0,.05); padding: 1px 5px; border-radius: 4px; }
+
+  .browser { background: var(--paper); border-radius: 12px; border: 1px solid #d4cfc3; overflow: hidden; }
+  .chrome { display: flex; align-items: center; gap: 12px; padding: 9px 14px; background: #efebe4; border-bottom: 1px solid #ddd8cc; }
+  .dots { display: flex; gap: 6px; } .dots i { width: 11px; height: 11px; border-radius: 50%; background: #d3cec2; }
+  .url { flex: 1; max-width: 520px; background: #fff; border-radius: 7px; padding: 4px 12px; font-size: 12.5px; color: var(--muted); }
+  .site { background: var(--page); position: relative; }
+  .nav { display: flex; align-items: center; gap: 28px; padding: 12px 32px; background: #fff; border-bottom: 1px solid var(--line); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--primary); font-size: 19px; letter-spacing: -.01em; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; background: var(--primary); color: #fff; display: grid; place-items: center; }
+  .logo svg { width: 19px; height: 19px; }
+  .nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; padding: 6px 0; display: flex; align-items: center; gap: 7px; }
+  .nav a svg { width: 17px; height: 17px; }
+  .nav a.on { color: var(--primary); box-shadow: inset 0 -2px 0 var(--primary); }
+  .nav .user { margin-left: auto; font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+  .ava { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; font-weight: 800; font-size: 13px; }
+  .main { padding: 28px 32px 36px; max-width: 1120px; margin: 0 auto; }
+  .head { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 20px; }
+  .head h3 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
+  .head p { margin: 2px 0 0; color: var(--muted); }
+  .head .act { margin-left: auto; }
+
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 13.5px; }
+  .big { font-size: 30px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+  .est { font-size: 12.5px; color: var(--muted); }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+  .chip svg { width: 14px; height: 14px; }
+  .chip.ai { background: var(--primary-soft); color: var(--primary); }
+  .chip.est { border: 1.5px dashed #bdb6a6; color: var(--muted); font-weight: 600; padding: 2px 9px; }
+  .chip.l { background: var(--listrik-soft); color: var(--listrik-ink); }
+  .chip.a { background: var(--air-soft); color: var(--air); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; border-radius: 12px; padding: 12px 20px; font-weight: 700; font-size: 16px; }
+  .btn svg { width: 18px; height: 18px; }
+  .btn.ghost { background: #fff; color: var(--primary); border: 1.5px solid #c9d2e2; }
+  .btn.sm { padding: 8px 14px; font-size: 14.5px; }
+  .btn.block { display: flex; justify-content: center; }
+
+  .ico { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; flex: none; }
+  .ico svg { width: 22px; height: 22px; }
+  .ico.sm { width: 34px; height: 34px; border-radius: 10px; } .ico.sm svg { width: 18px; height: 18px; }
+  .ico.l { background: var(--listrik-soft); color: var(--listrik-ink); }
+  .ico.a { background: var(--air-soft); color: var(--air); }
+  .ico.w { background: var(--warn-soft); color: var(--warn); }
+  .ico.p { background: var(--primary-soft); color: var(--primary); }
+
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .side { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; align-items: start; }
+  .stat { display: flex; flex-direction: column; gap: 10px; }
+  .stat .top { display: flex; align-items: center; gap: 10px; }
+
+  label { font-size: 14.5px; font-weight: 600; display: block; margin-bottom: 6px; }
+  .field { display: flex; flex-direction: column; }
+  .input { border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 14px; font-size: 16px; background: #fff; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .seg { display: inline-grid; grid-auto-flow: column; background: var(--soft); border-radius: 12px; padding: 4px; gap: 4px; }
+  .seg div { padding: 8px 16px; border-radius: 9px; font-weight: 600; color: var(--muted); font-size: 15px; display: flex; align-items: center; gap: 7px; }
+  .seg div svg { width: 17px; height: 17px; }
+  .seg .on { background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .steps { display: flex; gap: 10px; font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+  .steps span { display: flex; align-items: center; gap: 8px; }
+  .steps b { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--soft); color: var(--muted); font-size: 13px; }
+  .steps .on b { background: var(--primary); color: #fff; }
+  .steps .on { color: var(--ink); font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; font-size: 13px; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  td .name { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  td .cell { border: 1.5px solid var(--line); border-radius: 9px; padding: 5px 10px; background: #fff; display: inline-block; min-width: 54px; }
+  td .cell.ai { border-style: dashed; border-color: #b9b19f; background: #fdfbf6; }
+
+  .ring { width: 92px; height: 92px; flex: none; }
+  .rank .r { display: grid; grid-template-columns: 34px 110px 1fr 80px; gap: 12px; align-items: center; padding: 6px 0; font-size: 15px; }
+  .bar { height: 12px; border-radius: 6px; background: var(--soft); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--listrik); border-radius: 6px; }
+  .rank .v { text-align: right; font-weight: 700; }
+
+  /* kartu biang boros: ikon alat + nomor, tanpa garis kiri */
+  .boros { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: start; }
+  .boros .pic { position: relative; }
+  .boros .pic .ico { width: 52px; height: 52px; border-radius: 15px; }
+  .boros .pic .ico svg { width: 26px; height: 26px; }
+  .boros .pic .n { position: absolute; top: -6px; left: -6px; width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; border: 2px solid #fff; }
+  .boros h4 { margin: 0 0 4px; font-size: 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .boros p { margin: 0; font-size: 14.5px; color: var(--muted); }
+
+  .banner { background: var(--warn-soft); border-radius: 16px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .banner b { color: var(--warn); }
+  .banner .btn { margin-left: auto; background: var(--warn); }
+
+  .misi { display: grid; grid-template-columns: 28px 44px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+  .misi + .misi { margin-top: 10px; }
+  .misi.done { background: var(--primary-soft); border-color: #cdd7e8; }
+  .box { width: 26px; height: 26px; border-radius: 8px; border: 2px solid #b9b3a5; display: grid; place-items: center; color: #fff; background: #fff; }
+  .box svg { width: 16px; height: 16px; }
+  .done .box, .box.on { background: var(--primary); border-color: var(--primary); }
+  .misi .t { font-weight: 700; }
+  .misi .d { font-size: 13.5px; color: var(--muted); }
+  .misi .rp { font-weight: 800; color: var(--primary); font-size: 16px; white-space: nowrap; }
+  .total { background: var(--primary); color: #fff; border-radius: 16px; padding: 20px; display: flex; gap: 16px; align-items: center; }
+  .total .ico { background: rgba(255,255,255,.14); color: #ffd572; width: 56px; height: 56px; }
+  .total .ico svg { width: 28px; height: 28px; }
+  .total .big { color: #fff; font-size: 34px; }
+
+  .check { display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 12px 0; border-bottom: 1px dashed var(--line); align-items: center; }
+  .check:last-child { border-bottom: 0; }
+  .cause { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+  .cause .c { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+  .cause span { display: block; font-size: 13.5px; color: var(--muted); }
+
+  .overlay { position: absolute; inset: 0; background: rgba(28,34,48,.45); display: grid; place-items: center; padding: 24px; }
+  .modal { background: #fff; border-radius: 18px; padding: 24px; width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.2); }
+  .modal h4 { margin: 0; font-size: 20px; }
+
+  .states { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .spin { width: 40px; height: 40px; border-radius: 50%; border: 4px solid var(--primary-soft); border-top-color: var(--primary); animation: s 1s linear infinite; margin: 0 auto 10px; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+
+  .notes { margin-top: 48px; background: var(--paper); border-radius: 16px; padding: 22px 26px; font-size: 15px; }
+  .notes h3 { margin: 0 0 8px; }
+  .notes h4 { margin: 18px 0 6px; font-size: 15px; }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .notes li { margin-bottom: 4px; }
+  .notes table { font-size: 14px; margin-top: 6px; }
+  .notes td, .notes th { padding: 7px 10px; }
+
+  @media (max-width: 900px) {
+    .g2, .g3, .g4, .side, .states { grid-template-columns: 1fr; }
+    .nav { flex-wrap: wrap; gap: 14px; padding: 12px 16px; }
+    .main { padding: 20px 16px; }
+    .rank .r { grid-template-columns: 30px 80px 1fr 70px; }
+    table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <h1>HematRumah: mockup alur (website) · revisi 2</h1>
+    <p>Gambaran halaman dan urutan pakai, bukan desain final. Ikon dari Lucide (sudah ikut shadcn), grafik nanti pakai shadcn Chart (Recharts). Angka contoh dihitung dengan rumus di FEATURES.md dari data akun demo.</p>
+    <div class="palette">
+      <div class="sw" style="--c:#1f3354"><i></i><div><b>Biru tinta</b><span>brand, tombol, teks penting</span></div></div>
+      <div class="sw" style="--c:#e3a008"><i></i><div><b>Kuning</b><span>semua yang soal listrik</span></div></div>
+      <div class="sw" style="--c:#2478b5"><i></i><div><b>Biru air</b><span>semua yang soal air</span></div></div>
+      <div class="sw" style="--c:#c2410c"><i></i><div><b>Oranye bata</b><span>peringatan lonjakan</span></div></div>
+      <div class="sw" style="--c:#faf8f4; outline:1px solid #ddd"><i style="outline:1px solid #ddd"></i><div><b>Krem</b><span>latar halaman</span></div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">A. Pertama kali pakai</h2>
+
+  <p class="cap"><b>1. Masuk / Daftar</b> · <code>/masuk</code>, <code>/daftar</code></p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/masuk</div></div>
+    <div class="site" style="padding:48px 32px">
+      <div class="g2" style="max-width:1000px; margin:0 auto; align-items:center; gap:48px">
+        <div>
+          <div class="brand" style="font-size:26px"><span class="logo" style="width:44px;height:44px"><i data-lucide="house-plug"></i></span>HematRumah</div>
+          <p style="font-size:24px; font-weight:800; margin:18px 0 8px; letter-spacing:-.02em; line-height:1.25">Tahu ke mana listrik dan air di rumah habis, lalu mulai hemat.</p>
+          <p class="muted" style="margin:0 0 20px">Ceritakan rumahmu dengan bahasa sehari-hari. Biayanya dihitung dalam Rupiah, kamu diberi tahu kalau pemakaian melonjak, dan dibimbing langkah hemat.</p>
+          <!-- ilustrasi rumah: listrik (kuning) + air (biru) -->
+          <svg viewBox="0 0 360 200" width="100%" style="max-width:420px" aria-hidden="true">
+            <ellipse cx="180" cy="186" rx="150" ry="10" fill="#ebe5d8"/>
+            <rect x="96" y="92" width="168" height="92" rx="6" fill="#fff" stroke="#1f3354" stroke-width="3"/>
+            <path d="M82 98 L180 30 L278 98 Z" fill="#1f3354"/>
+            <rect x="214" y="44" width="18" height="34" fill="#1f3354"/>
+            <rect x="116" y="112" width="40" height="34" rx="4" fill="#fdf3d6" stroke="#1f3354" stroke-width="2.5"/>
+            <circle cx="136" cy="129" r="7" fill="#e3a008"/>
+            <rect x="204" y="112" width="40" height="34" rx="4" fill="#e2eff9" stroke="#1f3354" stroke-width="2.5"/>
+            <path d="M224 118 C218 127 216 131 216 134 a8 8 0 0 0 16 0 C232 131 230 127 224 118 Z" fill="#2478b5"/>
+            <rect x="166" y="138" width="28" height="46" rx="3" fill="#e8edf5" stroke="#1f3354" stroke-width="2.5"/>
+            <path d="M44 70 L30 104 H44 L38 130 L62 92 H48 L56 70 Z" fill="#e3a008"/>
+            <path d="M318 96 C306 114 302 122 302 130 a16 16 0 0 0 32 0 C334 122 330 114 318 96 Z" fill="#2478b5"/>
+            <circle cx="312" cy="128" r="4" fill="#fff" opacity=".6"/>
+          </svg>
+        </div>
+        <div class="card" style="padding:28px; display:flex; flex-direction:column; gap:14px">
+          <b style="font-size:20px">Masuk</b>
+          <div class="field"><label>Email</label><div class="input">ibu.sri@contoh.id</div></div>
+          <div class="field"><label>Kata sandi</label><div class="input">••••••••</div></div>
+          <div class="btn block">Masuk</div>
+          <p class="muted small" style="margin:0; text-align:center">Belum punya akun? <b style="color:var(--primary)">Daftar</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>2. Profil Rumah</b> · <code>/profil</code> · langkah 1 dari 2, sekali di awal (bisa diubah dari menu Data Rumah)</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/profil</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main" style="max-width:780px">
+        <div class="steps"><span class="on"><b>1</b>Profil rumah</span><span>›</span><span><b>2</b>Data rumah</span></div>
+        <div class="card" style="padding:26px; display:flex; flex-direction:column; gap:18px">
+          <div class="g2">
+            <div class="field"><label>Jumlah penghuni</label><div class="input">4 orang</div></div>
+            <div class="field"><label>Daya listrik</label><div class="input">1.300 VA ▾</div><div class="hint">Lihat di meteran atau tagihan PLN.</div></div>
+          </div>
+          <div class="field"><label>Jenis listrik</label><div><div class="seg"><div class="on"><i data-lucide="receipt"></i>Token (prabayar)</div><div><i data-lucide="file-text"></i>Tagihan bulanan</div></div></div></div>
+          <div class="g2">
+            <div class="field"><label><span class="chip l" style="margin-right:6px"><i data-lucide="zap"></i>Listrik</span>Tarif per kWh</label><div class="input">Rp 1.444,70</div><div class="hint">Salin dari struk token / tagihan.</div></div>
+            <div class="field"><label><span class="chip a" style="margin-right:6px"><i data-lucide="droplet"></i>Air</span>Tarif PDAM per m³</label><div class="input">Rp 7.000</div><div class="hint">Kosongkan kalau tidak pakai PDAM.</div></div>
+          </div>
+          <div style="text-align:right"><div class="btn">Lanjut ke data rumah <i data-lucide="arrow-right"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>3a. Data Rumah, tab Ceritakan</b> · <code>/rumah?tab=cerita</code> · untuk orang awam, AI mengisi form (tidak menyimpan)</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/rumah?tab=cerita</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a><i data-lucide="layout-dashboard"></i>Beranda</a><a class="on"><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main">
+        <div class="head"><div><h3>Data rumah</h3><p>Pilih cara yang paling mudah. Keduanya mengisi data yang sama.</p></div></div>
+        <div class="seg" style="margin-bottom:18px"><div class="on"><i data-lucide="message-square-text"></i>Ceritakan</div><div><i data-lucide="list"></i>Isi form</div></div>
+        <div class="side">
+          <div class="card" style="display:flex; flex-direction:column; gap:14px">
+            <label style="margin:0">Ceritakan alat dan kebiasaan di rumah</label>
+            <div class="input" style="min-height:170px; line-height:1.6">Di rumah ada 4 orang. AC satu di kamar, nyala dari jam 9 malam sampai subuh. Kulkas satu. TV nyala hampir seharian. Lampu ada 8. Pompa air nyala pagi sampai sore. Mandi dua kali sehari, cuci baju pakai mesin 3 kali seminggu.</div>
+            <div class="hint" style="margin:0">Pakai bahasa sehari-hari, tidak perlu tahu watt. 241/1000 karakter.</div>
+            <div><div class="btn"><i data-lucide="wand"></i>Proses cerita</div></div>
+          </div>
+          <div class="card" style="background:var(--soft); border:0; display:flex; flex-direction:column; gap:12px">
+            <b>Yang perlu diceritakan</b>
+            <div style="display:flex; gap:12px; align-items:center"><span class="ico sm l"><i data-lucide="plug"></i></span><span class="small">Alat listrik apa saja, dan kira-kira nyala berapa lama</span></div>
+            <div style="display:flex; gap:12px; align-items:center"><span class="ico sm p"><i data-lucide="users"></i></span><span class="small">Berapa orang di rumah</span></div>
+            <div style="display:flex; gap:12px; align-items:center"><span class="ico sm a"><i data-lucide="shower-head"></i></span><span class="small">Kebiasaan mandi, cuci baju, siram tanaman</span></div>
+            <p class="small muted" style="margin:4px 0 0">Hasilnya masuk ke tab <b>Isi form</b>. Kamu bisa cek dan ubah sebelum disimpan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>3a. State panggilan AI</b> · berlaku juga untuk audit dan penjelasan lonjakan</p>
+  <div class="states">
+    <div class="card" style="text-align:center; padding:26px"><div class="spin"></div><b>AI sedang membaca cerita rumahmu...</b><p class="muted small" style="margin:4px 0 0">Biasanya 5-15 detik.</p></div>
+    <div class="card" style="text-align:center; padding:22px"><span class="ico w" style="margin:0 auto 10px"><i data-lucide="cloud-off"></i></span><b>Cerita belum bisa diproses</b><p class="small muted" style="margin:6px 0 12px">Coba lagi sebentar, atau isi lewat tab Isi form.</p><div class="btn sm ghost"><i data-lucide="rotate-ccw"></i>Coba lagi</div></div>
+    <div class="card" style="text-align:center; padding:22px"><span class="ico p" style="margin:0 auto 10px"><i data-lucide="house"></i></span><b>Belum ada data rumah</b><p class="muted small" style="margin:6px 0 12px">Ceritakan rumahmu dulu supaya bisa dihitung.</p><div class="btn sm">Mulai</div></div>
+  </div>
+
+  <p class="cap"><b>3b. Data Rumah, tab Isi Form</b> · <code>/rumah?tab=form</code> · hasil cerita masuk ke sini; satu-satunya jalur simpan. Kotak garis putus-putus = perkiraan AI</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/rumah?tab=form</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a><i data-lucide="layout-dashboard"></i>Beranda</a><a class="on"><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main">
+        <div class="head"><div><h3>Data rumah</h3><p><span class="chip est">4 kolom perkiraan AI · cek lagi</span></p></div><div class="act"><div class="btn"><i data-lucide="calculator"></i>Simpan &amp; audit</div></div></div>
+        <div class="seg" style="margin-bottom:18px"><div><i data-lucide="message-square-text"></i>Ceritakan</div><div class="on"><i data-lucide="list"></i>Isi form</div></div>
+        <div class="side">
+          <div class="card" style="padding:8px 8px 14px">
+            <table>
+              <tr><th>Alat</th><th>Jumlah</th><th>Jam / hari</th><th>Hari / minggu</th><th>Watt</th></tr>
+              <tr><td><div class="name"><span class="ico sm l"><i data-lucide="air-vent"></i></span>AC 1 PK</div></td><td><span class="cell">1</span></td><td><span class="cell ai">8</span></td><td><span class="cell">7</span></td><td><span class="cell">800</span></td></tr>
+              <tr><td><div class="name"><span class="ico sm l"><i data-lucide="refrigerator"></i></span>Kulkas 2 pintu</div></td><td><span class="cell">1</span></td><td><span class="cell">24</span></td><td><span class="cell">7</span></td><td><span class="cell">50</span></td></tr>
+              <tr><td><div class="name"><span class="ico sm l"><i data-lucide="tv"></i></span>TV LED</div></td><td><span class="cell">1</span></td><td><span class="cell ai">12</span></td><td><span class="cell">7</span></td><td><span class="cell">80</span></td></tr>
+              <tr><td><div class="name"><span class="ico sm l"><i data-lucide="lightbulb"></i></span>Lampu LED</div></td><td><span class="cell">8</span></td><td><span class="cell ai">10</span></td><td><span class="cell">7</span></td><td><span class="cell">10</span></td></tr>
+              <tr><td><div class="name"><span class="ico sm a"><i data-lucide="waves"></i></span>Pompa air</div></td><td><span class="cell">1</span></td><td><span class="cell ai">10</span></td><td><span class="cell">7</span></td><td><span class="cell">250</span></td></tr>
+              <tr><td><div class="name"><span class="ico sm l"><i data-lucide="washing-machine"></i></span>Mesin cuci</div></td><td><span class="cell">1</span></td><td><span class="cell">1</span></td><td><span class="cell">3</span></td><td><span class="cell">350</span></td></tr>
+            </table>
+            <div style="padding:12px 10px 0"><div class="btn sm ghost"><i data-lucide="plus"></i>Tambah alat</div> <span class="est" style="margin-left:8px">Pilih dari 16 alat umum atau "Alat lain"</span></div>
+          </div>
+          <div class="card" style="display:flex; flex-direction:column; gap:12px">
+            <div style="display:flex; align-items:center; gap:10px"><span class="ico sm a"><i data-lucide="droplets"></i></span><b>Kebiasaan air</b></div>
+            <div class="g2" style="gap:12px">
+              <div class="field"><label>Mandi per hari</label><div class="input">2 kali</div></div>
+              <div class="field"><label>Cara mandi</label><div class="input">Gayung ▾</div></div>
+              <div class="field"><label>Cuci baju / minggu</label><div class="input">3 kali</div></div>
+              <div class="field"><label>Pakai mesin cuci</label><div class="input">Ya ▾</div></div>
+              <div class="field"><label>Siram tanaman / minggu</label><div class="input">0 kali</div></div>
+              <div class="field"><label>Cuci kendaraan / minggu</label><div class="input">1 kali</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>3c. Bercerita lagi saat form sudah terisi</b> · dialog di tab Ceritakan · alat yang sama digabung, tidak dobel</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/rumah?tab=cerita</div></div>
+    <div class="site" style="min-height:380px">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a><i data-lucide="layout-dashboard"></i>Beranda</a><a class="on"><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="overlay">
+        <div class="modal">
+          <span class="ico p"><i data-lucide="list-plus"></i></span>
+          <h4>Form sudah berisi 6 alat</h4>
+          <span class="muted">Hasil cerita baru ("ada dispenser juga, nyala terus") mau diapakan?</span>
+          <div style="display:flex; gap:10px"><div class="btn sm">Tambahkan ke daftar</div><div class="btn sm ghost">Ganti semua</div></div>
+          <span class="est">Alat di luar daftar umum masuk sebagai Alat lain, watt diisi sendiri.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>4. Hasil Audit</b> · <code>/audit</code> · angka dari backend (rumus), biang boros dari AI</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/audit</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a><i data-lucide="layout-dashboard"></i>Beranda</a><a><i data-lucide="house"></i>Data Rumah</a><a class="on"><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main">
+        <div class="head"><div><h3>Hasil audit rumah</h3><p>Diperbarui 7 Nov 2026, 10.12 · semua angka perkiraan</p></div><div class="act"><div class="btn">Lihat rencana hemat <i data-lucide="arrow-right"></i></div></div></div>
+        <div class="g3" style="margin-bottom:18px">
+          <div class="card" style="display:flex; gap:16px; align-items:center">
+            <svg class="ring" viewBox="0 0 80 80"><circle cx="40" cy="40" r="33" fill="none" stroke="#eee9df" stroke-width="9"/><circle cx="40" cy="40" r="33" fill="none" stroke="#1f3354" stroke-width="9" stroke-dasharray="145 207" stroke-linecap="round" transform="rotate(-90 40 40)"/><text x="40" y="46" text-anchor="middle" font-size="20" font-weight="800" fill="#1c2230">70</text></svg>
+            <div><b>Skor efisiensi 70/100</b><div class="muted small">70% biaya rumahmu masih wajar. Sisanya bisa dihemat.</div></div>
+          </div>
+          <div class="card stat"><div class="top"><span class="ico l"><i data-lucide="zap"></i></span><span class="muted small">Listrik per bulan</span></div><div class="big">Rp520.500</div><div class="est">±360 kWh</div></div>
+          <div class="card stat"><div class="top"><span class="ico a"><i data-lucide="droplet"></i></span><span class="muted small">Air per bulan</span></div><div class="big">Rp75.600</div><div class="est">±10,8 m³</div></div>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <b>Biaya listrik per alat</b>
+            <div class="rank" style="margin-top:8px">
+              <div class="r"><span class="ico sm l"><i data-lucide="air-vent"></i></span><span>AC 1 PK</span><div class="bar"><i style="width:100%"></i></div><span class="v">Rp277rb</span></div>
+              <div class="r"><span class="ico sm a"><i data-lucide="waves"></i></span><span>Pompa air</span><div class="bar"><i style="width:39%"></i></div><span class="v">Rp108rb</span></div>
+              <div class="r"><span class="ico sm l"><i data-lucide="refrigerator"></i></span><span>Kulkas</span><div class="bar"><i style="width:19%"></i></div><span class="v">Rp52rb</span></div>
+              <div class="r"><span class="ico sm l"><i data-lucide="tv"></i></span><span>TV LED</span><div class="bar"><i style="width:15%"></i></div><span class="v">Rp42rb</span></div>
+              <div class="r"><span class="ico sm l"><i data-lucide="lightbulb"></i></span><span>Lampu ×8</span><div class="bar"><i style="width:13%"></i></div><span class="v">Rp35rb</span></div>
+              <div class="r"><span class="ico sm l"><i data-lucide="washing-machine"></i></span><span>Mesin cuci</span><div class="bar"><i style="width:3%"></i></div><span class="v">Rp7rb</span></div>
+            </div>
+            <div class="est" style="margin-top:8px">Air: mandi Rp42rb · lain-lain Rp25rb · cuci baju Rp7rb · kendaraan Rp1rb</div>
+          </div>
+          <div class="card" style="display:flex; flex-direction:column; gap:18px">
+            <div style="display:flex; align-items:center; justify-content:space-between"><b>3 biang boros</b><span class="chip ai">dari AI</span></div>
+            <div class="boros"><div class="pic"><span class="ico a"><i data-lucide="waves"></i></span><span class="n">1</span></div><div><h4>Pompa air nyala ±10 jam <span class="chip l">Rp108rb/bln</span></h4><p>Pompa rumah biasanya cukup nyala sebentar untuk mengisi toren. Nyala lama bisa berarti toren tidak pernah penuh: pelampung rusak atau ada bocor.</p></div></div>
+            <div class="boros"><div class="pic"><span class="ico l"><i data-lucide="air-vent"></i></span><span class="n">2</span></div><div><h4>AC 8 jam setiap malam <span class="chip l">53% listrik</span></h4><p>Pakai timer mati jam 3 pagi dan suhu 25-26°C.</p></div></div>
+            <div class="boros"><div class="pic"><span class="ico l"><i data-lucide="tv"></i></span><span class="n">3</span></div><div><h4>TV nyala hampir seharian <span class="chip l">Rp42rb/bln</span></h4><p>Sering menyala tanpa ditonton. Matikan kalau tidak dipakai.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>5. Rencana Hemat</b> · <code>/rencana</code> · centang misi → total hemat bertambah langsung</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/rencana</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a><i data-lucide="layout-dashboard"></i>Beranda</a><a><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a class="on"><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main">
+        <div class="head"><div><h3>Rencana hemat</h3><p>Disusun dari hasil audit rumahmu, urut dari yang paling menghemat.</p></div></div>
+        <div class="side">
+          <div>
+            <div class="misi done"><div class="box"><i data-lucide="check"></i></div><span class="ico a"><i data-lucide="waves"></i></span><div><div class="t">Cek pelampung toren, pompa cukup ±2 jam</div><div class="d">Pompa air 10 → 2 jam/hari</div></div><span class="rp">Rp87rb/bln</span></div>
+            <div class="misi done"><div class="box"><i data-lucide="check"></i></div><span class="ico l"><i data-lucide="timer"></i></span><div><div class="t">AC pakai timer mati jam 3 pagi</div><div class="d">AC 8 → 6 jam/hari</div></div><span class="rp">Rp69rb/bln</span></div>
+            <div class="misi"><div class="box"></div><span class="ico l"><i data-lucide="tv"></i></span><div><div class="t">Matikan TV kalau tidak ditonton</div><div class="d">TV 12 → 6 jam/hari</div></div><span class="rp">Rp21rb/bln</span></div>
+            <div class="misi"><div class="box"></div><span class="ico a"><i data-lucide="shower-head"></i></span><div><div class="t">Orang dewasa mandi 1 kali sehari di musim hujan</div><div class="d">Mandi 2 → 1 kali/hari (2 orang)</div></div><span class="rp">Rp11rb/bln</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="total">
+              <span class="ico"><i data-lucide="piggy-bank"></i></span>
+              <div>
+                <div style="font-size:14px; opacity:.85">Kalau misi yang dicentang dijalankan</div>
+                <div class="big">Rp156.000</div>
+                <div style="font-size:14px; opacity:.85">hemat per bulan · ±Rp1,87 juta per tahun</div>
+              </div>
+            </div>
+            <div class="card">
+              <b>Tagihan listrik sebelum vs sesudah rencana</b>
+              <svg viewBox="0 0 300 120" width="100%" style="margin-top:10px">
+                <g fill="#e6dfcf"><rect x="20" y="22" width="40" height="76" rx="5"/><rect x="76" y="18" width="40" height="80" rx="5"/><rect x="132" y="15" width="40" height="83" rx="5"/></g>
+                <rect x="210" y="40" width="40" height="58" rx="5" fill="#e3a008"/>
+                <line x1="191" y1="6" x2="191" y2="100" stroke="#1f3354" stroke-dasharray="3 4"/>
+                <text x="196" y="14" font-size="9" fill="#1f3354">mulai rencana</text>
+                <g font-size="10" fill="#646a76" text-anchor="middle"><text x="40" y="114">Sep</text><text x="96" y="114">Okt</text><text x="152" y="114">Nov</text><text x="230" y="114">Des</text></g>
+              </svg>
+              <div class="est">Bulan setelah rencana muncul begitu catatan listrik berikutnya diisi.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sec">B. Pakai rutin (memantau)</h2>
+
+  <p class="cap"><b>6. Beranda</b> · <code>/beranda</code> · halaman utama setelah setup</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/beranda</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a class="on"><i data-lucide="layout-dashboard"></i>Beranda</a><a><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main">
+        <div class="head"><div><h3>Halo, Ibu Sri</h3><p>Pemakaian rumahmu sampai 7 November 2026.</p></div><div class="act"><div class="btn"><i data-lucide="plus"></i>Catat pemakaian</div></div></div>
+        <div class="banner"><span class="ico w"><i data-lucide="triangle-alert"></i></span><div><b>Air minggu ini naik 1,55×</b><div class="small">6,2 m³, biasanya ±4,0 m³ · kira-kira Rp15.400 lebih. Bisa jadi ada kebocoran.</div></div><div class="btn sm">Cek penyebabnya</div></div>
+        <div class="g4" style="margin-bottom:18px">
+          <div class="card stat"><div class="top"><span class="ico p"><i data-lucide="gauge"></i></span><span class="muted small">Skor rumah</span></div><div class="big">70</div></div>
+          <div class="card stat"><div class="top"><span class="ico p"><i data-lucide="piggy-bank"></i></span><span class="muted small">Target hemat</span></div><div class="big" style="color:var(--primary)">Rp156rb</div><div class="est">2 misi dijalankan</div></div>
+          <div class="card stat"><div class="top"><span class="ico l"><i data-lucide="zap"></i></span><span class="muted small">Listrik November</span></div><div class="big">Rp521rb</div><div class="est">token · perkiraan</div></div>
+          <div class="card stat"><div class="top"><span class="ico a"><i data-lucide="droplet"></i></span><span class="muted small">Air minggu ini</span></div><div class="big" style="color:var(--warn)">6,2 m³</div></div>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center"><b>Listrik per bulan</b><span class="chip l"><i data-lucide="zap"></i>Rp tagihan / token</span></div>
+            <svg viewBox="0 0 320 140" width="100%">
+              <g fill="#e3a008"><rect x="16" y="46" width="34" height="68" rx="5"/><rect x="68" y="44" width="34" height="70" rx="5"/><rect x="120" y="40" width="34" height="74" rx="5"/><rect x="172" y="36" width="34" height="78" rx="5"/><rect x="224" y="32" width="34" height="82" rx="5"/><rect x="276" y="30" width="34" height="84" rx="5"/></g>
+              <g font-size="10" fill="#646a76" text-anchor="middle"><text x="33" y="130">Jun</text><text x="85" y="130">Jul</text><text x="137" y="130">Agu</text><text x="189" y="130">Sep</text><text x="241" y="130">Okt</text><text x="293" y="130">Nov</text></g>
+              <g font-size="9.5" fill="#1c2230" text-anchor="middle"><text x="33" y="40">468rb</text><text x="293" y="24">521rb</text></g>
+            </svg>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center"><b>Air per minggu</b><span class="chip a"><i data-lucide="droplet"></i>m³ meteran PDAM</span></div>
+            <svg viewBox="0 0 320 140" width="100%">
+              <line x1="10" y1="68" x2="312" y2="68" stroke="#646a76" stroke-dasharray="3 4"/>
+              <text x="12" y="62" font-size="9.5" fill="#646a76">rata-rata 4 minggu</text>
+              <polyline fill="none" stroke="#2478b5" stroke-width="2.5" points="20,70 60,74 100,68 140,72 180,76 220,70 260,72 300,24"/>
+              <g fill="#2478b5"><circle cx="20" cy="70" r="3.5"/><circle cx="60" cy="74" r="3.5"/><circle cx="100" cy="68" r="3.5"/><circle cx="140" cy="72" r="3.5"/><circle cx="180" cy="76" r="3.5"/><circle cx="220" cy="70" r="3.5"/><circle cx="260" cy="72" r="3.5"/></g>
+              <circle cx="300" cy="24" r="6" fill="#c2410c"/><text x="290" y="18" font-size="10" fill="#c2410c" text-anchor="end" font-weight="700">6,2</text>
+              <g font-size="10" fill="#646a76" text-anchor="middle"><text x="20" y="130">M1</text><text x="100" y="130">M3</text><text x="180" y="130">M5</text><text x="260" y="130">M7</text><text x="300" y="130">M8</text></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>7. Catat pemakaian</b> · dialog dari Beranda · listrik per bulan, air per minggu</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/beranda</div></div>
+    <div class="site" style="min-height:560px">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a class="on"><i data-lucide="layout-dashboard"></i>Beranda</a><a><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="overlay">
+        <div class="modal">
+          <h4>Catat pemakaian</h4>
+          <div><div class="seg"><div><i data-lucide="zap"></i>Listrik</div><div class="on"><i data-lucide="droplet"></i>Air</div></div></div>
+          <div class="field"><label>Tanggal baca meteran</label><div class="input">7 November 2026</div></div>
+          <div class="field"><label>Angka meteran air (m³)</label><div class="input">1.284,6</div><div class="hint">Catatan sebelumnya 1.278,4 (31 Okt). Angka harus lebih besar.</div></div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--soft); border-radius:12px; padding:12px; font-size:14px"><span class="ico sm l"><i data-lucide="zap"></i></span><span>Tab <b>Listrik</b>: pilih bulan + total Rupiah tagihan atau total beli token bulan itu (token = perkiraan).</span></div>
+          <div style="display:flex; gap:10px; justify-content:flex-end"><div class="btn sm ghost">Batal</div><div class="btn sm">Simpan</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="cap"><b>8. Detail lonjakan</b> · <code>/lonjakan/[id]</code> · penjelasan AI + checklist langkah cek</p>
+  <div class="browser"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">iscomfest.jstnlt.id/lonjakan/41</div></div>
+    <div class="site">
+      <div class="nav"><span class="brand"><span class="logo"><i data-lucide="house-plug"></i></span>HematRumah</span><a class="on"><i data-lucide="layout-dashboard"></i>Beranda</a><a><i data-lucide="house"></i>Data Rumah</a><a><i data-lucide="clipboard-list"></i>Hasil Audit</a><a><i data-lucide="piggy-bank"></i>Rencana Hemat</a><span class="user"><span class="ava">IS</span>Ibu Sri</span></div>
+      <div class="main">
+        <div class="head"><div><p class="small" style="margin:0 0 4px">‹ Kembali ke beranda</p><h3>Pemakaian air naik 1,55×</h3><p>Minggu 31 Okt - 7 Nov 2026</p></div></div>
+        <div class="side">
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="g3">
+              <div class="card stat"><div class="top"><span class="ico w"><i data-lucide="trending-up"></i></span><span class="muted small">Minggu ini</span></div><div class="big" style="color:var(--warn)">6,2 m³</div></div>
+              <div class="card stat"><div class="top"><span class="ico a"><i data-lucide="droplet"></i></span><span class="muted small">Biasanya</span></div><div class="big">4,0 m³</div></div>
+              <div class="card stat"><div class="top"><span class="ico p"><i data-lucide="wallet"></i></span><span class="muted small">Biaya lebih</span></div><div class="big">Rp15rb</div></div>
+            </div>
+            <div class="card">
+              <div style="display:flex; align-items:center; justify-content:space-between"><b>Kemungkinan penyebab</b><span class="chip ai">dari AI</span></div>
+              <div class="cause">
+                <div class="c"><span class="ico sm a"><i data-lucide="waves"></i></span><div><b>Pelampung toren rusak</b><span>Cocok dengan pompa air yang nyala ±10 jam sehari di data rumahmu.</span></div></div>
+                <div class="c"><span class="ico sm a"><i data-lucide="toilet"></i></span><div><b>Tangki kloset bocor</b><span>Air terus mengalir pelan ke kloset tanpa terdengar.</span></div></div>
+                <div class="c"><span class="ico sm a"><i data-lucide="droplets"></i></span><div><b>Keran menetes</b><span>Satu keran menetes bisa membuang banyak air dalam sehari.</span></div></div>
+                <div class="c"><span class="ico sm a"><i data-lucide="pipette"></i></span><div><b>Pipa bawah tanah bocor</b><span>Kalau semua di atas sudah dicek dan angka tetap naik.</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display:flex; align-items:center; gap:10px"><span class="ico sm p"><i data-lucide="timer"></i></span><b>Tes bocor 30 menit</b></div>
+            <div class="check"><div class="box on"><i data-lucide="check"></i></div><span>Tutup semua keran, catat angka meteran</span></div>
+            <div class="check"><div class="box"></div><span>Jangan pakai air selama 30 menit</span></div>
+            <div class="check"><div class="box"></div><span>Angka bertambah? Berarti ada kebocoran</span></div>
+            <div class="check"><div class="box"></div><span>Cek satu per satu, mulai dari kloset (teteskan pewarna ke tangki)</span></div>
+            <p class="est" style="margin:10px 0 0">Kalau angka tetap naik setelah semua dicek, panggil tukang ledeng.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h3>Catatan buat Andre</h3>
+    <ul>
+      <li>Website, desktop dulu (demo di laptop), tetap responsif: di bawah ±900px kolom bertumpuk.</li>
+      <li>Pengguna utama orang tua: huruf badan ≥16px, tombol tinggi ≥44px, satu aksi utama per halaman, bahasa sehari-hari, angka dalam Rupiah.</li>
+      <li>Warna punya arti: kuning = listrik, biru = air, oranye bata = peringatan, biru tinta = brand/tombol. Jangan dicampur.</li>
+      <li>Kartu tanpa garis warna di kiri; pakai ikon alat dalam kotak lembut.</li>
+      <li>Setiap panggilan AI (cerita, audit, lonjakan): loading, error + coba lagi, empty state.</li>
+      <li>Semua angka dari backend. Frontend cuma menampilkan + menjumlah hemat misi yang dicentang. Panggil <code>/api/...</code> sesuai <code>docs/API.md</code>.</li>
+    </ul>
+
+    <h4>Library</h4>
+    <table>
+      <tr><th>Kebutuhan</th><th>Pakai</th><th>Pasang</th></tr>
+      <tr><td>Komponen UI</td><td>shadcn/ui: button, card, input, label, tabs, dialog, table, checkbox, badge, select, sonner (toast)</td><td><code>npx shadcn@latest add button card input label tabs dialog table checkbox badge select sonner</code></td></tr>
+      <tr><td>Ikon</td><td>lucide-react (sudah ikut shadcn). Nama ikon di mockup: <code>air-vent, refrigerator, tv, lightbulb, waves, washing-machine, zap, droplet, droplets, shower-head, toilet, triangle-alert, piggy-bank, gauge, timer, house-plug</code></td><td>-</td></tr>
+      <tr><td>Grafik</td><td>shadcn Chart (pakai Recharts di dalamnya)</td><td><code>npx shadcn@latest add chart</code></td></tr>
+      <tr><td>Font</td><td>Plus Jakarta Sans lewat <code>next/font/google</code></td><td>-</td></tr>
+    </table>
+
+    <h4>Grafik yang dipakai</h4>
+    <table>
+      <tr><th>Tempat</th><th>Jenis</th><th>Komponen Recharts</th><th>Data dari</th></tr>
+      <tr><td>Beranda: listrik per bulan</td><td>Batang, kuning</td><td><code>BarChart</code> + <code>Bar</code> + <code>XAxis</code></td><td><code>GET /api/beranda</code> → <code>listrik[]</code></td></tr>
+      <tr><td>Beranda: air per minggu</td><td>Garis biru + garis putus rata-rata + titik lonjakan merah</td><td><code>LineChart</code> + <code>Line</code> + <code>ReferenceLine</code> + <code>ReferenceDot</code></td><td><code>air[]</code>, <code>rata_air_m3</code></td></tr>
+      <tr><td>Hasil Audit: skor</td><td>Cincin progres</td><td><code>RadialBarChart</code> (atau SVG sederhana)</td><td><code>GET /api/audit/terbaru</code> → <code>skor</code></td></tr>
+      <tr><td>Hasil Audit: biaya per alat</td><td>Batang horizontal + ikon</td><td>Cukup div + Tailwind (lebih mudah dari chart), atau <code>BarChart layout="vertical"</code></td><td><code>rincian_alat[]</code></td></tr>
+      <tr><td>Rencana: sebelum vs sesudah</td><td>Batang, abu-abu sebelum, kuning sesudah, garis "mulai rencana"</td><td><code>BarChart</code> + <code>Cell</code> + <code>ReferenceLine</code></td><td><code>GET /api/misi</code> → <code>progres</code> + data listrik</td></tr>
+    </table>
+  </div>
+</div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

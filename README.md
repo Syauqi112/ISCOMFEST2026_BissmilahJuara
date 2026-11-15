@@ -1,6 +1,6 @@
-# ISCOMFEST 2026 Programing
+# ISCOMFEST 2026 Programming
 
-Source code tim untuk ISCOMFEST 2026 Programming Build.
+Source code tim untuk ISCOMFEST 2026 Programming.
 Nama aplikasi dan deskripsi: lihat `docs/IDEA.md`.
 
 ## Prasyarat
@@ -45,10 +45,17 @@ Frontend juga punya `web/.env.example` → `web/.env.local` (berisi `API_URL`, a
 |---|---|
 | `DATABASE_URL` | Koneksi MySQL/MariaDB, default `mysql://root:@127.0.0.1:3306/iscomfest` (XAMPP/DBngin) |
 | `JWT_SECRET` | Rahasia tanda tangan sesi login, string acak panjang (`openssl rand -hex 32`) |
-| `AI_BASE_URL`, `AI_API_KEY`, `AI_MODEL`, `AI_FALLBACK_MODEL` | Penyedia AI utama: OpenAgentic `https://openagentic.id/api/v1`, model `gemini-3.8-flash-high`, cadangan `deepseek-v4.1-flash` (format OpenAI, bisa diganti penyedia lain) |
+| `AI_BASE_URL`, `AI_API_KEY`, `AI_MODEL`, `AI_FALLBACK_MODEL` | Penyedia AI utama: Gemini `https://generativelanguage.googleapis.com/v1beta/openai`, model `gemini-3.1-flash-high`, cadangan `deepseek-v4.1-flash` (format OpenAI, bisa diganti penyedia lain) |
 | `AI2_BASE_URL`, `AI2_API_KEY`, `AI2_MODEL` | Opsional, penyedia kedua kalau penyedia utama bermasalah: DeepSeek resmi `https://api.deepseek.com`, `deepseek-flash`. Kosongkan kalau tidak punya key. Cek semua lapis: `cd api && npm run ai:cek` |
 | `CORS_ORIGIN` | Origin yang boleh akses API langsung |
 | `PORT` | Port API (4000) |
+
+##JIKA AUDIT TIDAK DAPAT BERJALAN MAKA AI BELUM TERHUBUNG CARANYA ADA DI BAWAH ⬇️
+
+##Cara Mendapatkan API Key Gemini
+Buka Link Berikut: `https://aistudio.google.com/api-keys` Kemudian Create API Key lalu Copy
+API Key Dan Pastekan Ke .env Pada Bagian `AI_API_KEY`
+(Salin .env-example atau rename menjadi .env)
 
 ## Akun demo
 | Role | Email / username | Password |
